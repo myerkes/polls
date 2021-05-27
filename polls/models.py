@@ -11,6 +11,10 @@ class Question(models.Model):
     def __str__(self) -> str:
         return self.question_text
 
+    def was_published_recently(self):
+        # Returns true is published in the last day
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
